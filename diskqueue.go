@@ -449,6 +449,10 @@ func (d *diskQueue) retrieveMetaData() error {
 	atomic.StoreInt64(&d.depth, depth)
 	d.nextReadFileNum = d.readFileNum
 	d.nextReadPos = d.readPos
+	if d.writePos > 0 {
+		d.writeFileNum++
+		d.writePos = 0
+	}
 
 	return nil
 }
